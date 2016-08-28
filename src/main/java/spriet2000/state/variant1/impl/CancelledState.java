@@ -12,9 +12,10 @@ public class CancelledState extends ProductState {
     public void handle(ProductContext context) {
 
         // logic
+        System.out.printf("logic applied of status %s%n", this.getName());
 
         // set new state
-        context.setNewState(this);
+        context.setState(this);
     }
 
     public String getName() {

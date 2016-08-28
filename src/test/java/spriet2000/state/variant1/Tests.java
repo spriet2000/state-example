@@ -50,4 +50,16 @@ public class Tests {
         Assert.assertEquals("End", states.get(0).getName());
         Assert.assertEquals("Pause", states.get(1).getName());
     }
+
+    @Test
+    public void newStatusShouldBePersisted(){
+        ProductContext context = new ProductContext(
+                new ProductInfo(new InitState()), new ClientInfo(200));
+
+        context.handle(new ActiveState());
+
+        Assert.assertEquals("Active", context.getProductInfo().getState().getName());
+
+
+    }
 }

@@ -10,10 +10,12 @@ public final class ProductContext {
         this.clientInfo = clientInfo;
     }
 
-    public void setNewState(final ProductState nextState) {
-        nextState.handle(this);
+    public void setState(final ProductState nextState) {
         persistStateChange(productInfo, nextState);
+    }
 
+    public void handle(final ProductState nextState){
+        nextState.handle(this);
     }
 
     private void persistStateChange(ProductInfo productInfo, ProductState to) {
