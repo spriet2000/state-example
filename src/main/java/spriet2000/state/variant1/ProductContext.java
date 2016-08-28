@@ -4,23 +4,21 @@ public final class ProductContext {
 
     private final ProductInfo productInfo;
     private final ClientInfo clientInfo;
-    private ProductState nextState;
 
-    public ProductContext(ProductInfo productInfo, ClientInfo clientInfo) {
+    ProductContext(ProductInfo productInfo, ClientInfo clientInfo) {
         this.productInfo = productInfo;
         this.clientInfo = clientInfo;
     }
 
     public void setNewState(final ProductState nextState) {
-        this.nextState = nextState;
+        nextState.handle(this);
+        persistStateChange(productInfo, nextState);
+
     }
 
-    public void act() {
-        this.nextState.act(this);
-        persistStateChange(productInfo.getState(), nextState);
-    }
-
-    private void persistStateChange(ProductState from, ProductState to) {
+    private void persistStateChange(ProductInfo productInfo, ProductState to) {
+        ProductState from = productInfo.getState();
+        productInfo.setState(to);
         System.out.printf("saved from %s,to %s%n", from.getName(), to.getName());
     }
 
@@ -28,7 +26,7 @@ public final class ProductContext {
         return clientInfo;
     }
 
-    public ProductInfo getProductInfo() {
+    ProductInfo getProductInfo() {
         return productInfo;
     }
 }

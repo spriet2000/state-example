@@ -4,7 +4,7 @@ import java.util.List;
 
 public abstract class ProductState {
 
-    public abstract void act(ProductContext context);
+    public abstract void handle(ProductContext context);
 
     public abstract String getName();
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ActiveState extends ProductState {
 
-    public void act(ProductContext context) {
+    public void handle(ProductContext context) {
 
         // logic
 
