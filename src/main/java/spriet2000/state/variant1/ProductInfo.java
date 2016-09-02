@@ -3,10 +3,12 @@ package spriet2000.state.variant1;
 public final class ProductInfo {
 
     private ProductState productState;
+    private final boolean isCompleted;
 
-    public ProductInfo(ProductState productState) {
+    public ProductInfo(ProductState productState, boolean isCompleted) {
 
         this.productState = productState;
+        this.isCompleted = isCompleted;
     }
 
     public ProductState getState() {
@@ -18,6 +20,6 @@ public final class ProductInfo {
     }
 
     public boolean isCompleted(){
-        return true;
+        return isCompleted;
     }
 }

@@ -11,18 +11,11 @@ import static org.junit.Assert.assertEquals;
 
 public class Tests {
 
-    @Test
-    public void clientInfoShouldBeSet() {
-        ProductContext context = new ProductContext(
-                new ProductInfo(new InitState()), new ClientInfo(200));
-
-        assertEquals(200, context.getClientInfo().getStatus());
-    }
 
     @Test
     public void productInfoShouldBeSet() {
         ProductContext context = new ProductContext(
-                new ProductInfo(new ActiveState()), new ClientInfo(200));
+                new ProductInfo(new ActiveState(), false));
 
         assertEquals("Active", context.getProductInfo().getState().getName());
     }
@@ -30,7 +23,7 @@ public class Tests {
     @Test
     public void whenClientIs200NextStatesShouldBeExplicit() {
         ProductContext context = new ProductContext(
-                new ProductInfo(new ActiveState()), new ClientInfo(200));
+                new ProductInfo(new ActiveState(), false));
 
         List<ProductState> states = new ActiveState().getNextStates(context);
 
@@ -40,9 +33,9 @@ public class Tests {
     }
 
     @Test
-    public void whenClientIs600NextStatesShouldBeExplicit() {
+    public void whenCompletedNextStatesShouldBeExplicit() {
         ProductContext context = new ProductContext(
-                new ProductInfo(new ActiveState()), new ClientInfo(600));
+                new ProductInfo(new ActiveState(), true));
 
         List<ProductState> states = new ActiveState().getNextStates(context);
 
@@ -54,7 +47,7 @@ public class Tests {
     @Test
     public void newStatusShouldBePersisted(){
         ProductContext context = new ProductContext(
-                new ProductInfo(new InitState()), new ClientInfo(200));
+                new ProductInfo(new InitState(), false));
 
         context.handle(new ActiveState());
 
