@@ -23,7 +23,7 @@ public class ActiveState extends ProductState {
     }
 
     public List<ProductState> getNextStates(ProductContext context) {
-        if (context.getClientInfo().getStatus() == 600) {
+        if (context.getProductInfo().isCompleted()) {
             return Arrays.asList(new EndState(), new PauseState());
         } else {
             return Arrays.asList(new CancelledState(), new PauseState());
